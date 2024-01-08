@@ -52,24 +52,20 @@ pipeline {
                         docker_image.push('latest')
                     }
 
-    }
-
-        
-
-}
+               }
+             }
 }  
 	    
-
-       stage("Trivy Scan") {
-           steps {
-               script {
-	            sh ('docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image sacrah1991/register-app:latest --no-progress --scanners vuln  --exit-code 0 --severity HIGH,CRITICAL --format table')
-               }
-
-}
+         stage("Trivy Scan") {
+            steps {
+                script {
+	             sh ('docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image sacrah1991/register-app:latest --no-progress --scanners vuln  --exit-code 0 --severity HIGH,CRITICAL --format table')
+                }
 
 }
-	    {
+
+}
+	    
 	    stage ('Cleanup Artifacts') {
            steps {
                script {
@@ -77,8 +73,8 @@ pipeline {
                     sh "docker rmi ${IMAGE_NAME}:latest"
                }
 
-	   }
+      }
     }
-}
-    }
-}
+  }
+ }
+
